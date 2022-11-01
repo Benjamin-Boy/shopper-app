@@ -1,58 +1,94 @@
+// Imports React properties
+
+// Imports React router properties
+import { Link } from "react-router-dom";
+
+// Imports custom hooks
+import { useAppDispatch, useAppSelector } from "../hooks";
+
+// Imports redux slices
+import { toggleFilterOpen } from "../store/features/globalSlice";
+
 // Imports React components
 import Footer from "../components/Footer";
+import PageNumber from "../components/PageNumber";
+import Button from "../components/Button";
+import Filters from "../components/Filters";
 
-// Imports React icons
-import { BsArrowRight } from "react-icons/bs";
-
-// Imports assets files
-import defaultImg from "../assets/temp/2601.jpg";
+// Imports data files
+// import products from "../data/data.json";
 
 const Products = () => {
-  const featuredProducts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const { products } = useAppSelector((state) => state.products);
+  const dispatch = useAppDispatch();
+
+  const currency = "£";
 
   return (
     <div className="bg-secondaryBg pt-16">
+      <div className="fixed bottom-0 flex justify-center w-full bg-gradient-to-t from-[#fff] md:hidden">
+        <div onClick={() => dispatch(toggleFilterOpen())}>
+          <Button use="filter" text="Filter" />
+        </div>
+      </div>
       <div className="flex flex-col gap-8 px-8 pt-8">
         <h1 className="text-4xl text-tertiaryText">Shop all you want</h1>
-        <div className="flex justify-between">
-          <div className="flex justify-start">
+        <div className="flex justify-between md:px-16">
+          <div className="flex justify-start items-center gap-8">
             <h4 className="text-sm text-primaryText">Home / Shop</h4>
+            <div className="hidden md:flex justify-center ">
+              <div onClick={() => dispatch(toggleFilterOpen())}>
+                <Button use="filter" text="Filter" />
+              </div>
+            </div>
           </div>
           <div className="flex justify-end gap-2">
             <h4>150 items</h4>
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-4 justify-center">
-        {featuredProducts.map(() => {
+      <div className="flex flex-wrap gap-4 justify-center md:px-16">
+        {products.map(({ id, productName, categories, price, image }) => {
           return (
-            <div className="min-w-[200px] max-w-[200px] flex flex-col gap-2 py-8">
-              <img src={defaultImg} alt="default" className="rounded-lg" />
-              <div className="px-4">
-                <div className="flex justify-between">
-                  <h4 className="text-primaryText text-xl">Product name</h4>
-                  <h4 className="text-primaryText text-xl">Price</h4>
+            <Link key={id} to={`/products/${id}`}>
+              <div className="flex flex-col gap-2 py-8 max-w-[40%] md:min-w-[350px] md:max-w-[350px] group">
+                <img
+                  src={image}
+                  alt={productName}
+                  className="rounded-lg group-hover:scale-105 transition 500ms"
+                />
+                <div className="px-4 flex flex-col gap-4 group-hover:translate-y-[1.2rem] transition 500ms">
+                  <div className="flex justify-between">
+                    <h4 className="text-primaryText text-xl">{productName}</h4>
+                    <h4 className="text-primaryText text-xl">
+                      {currency}
+                      {price}
+                    </h4>
+                  </div>
+                  <div className="flex gap-2">
+                    {categories.map((category, index) => {
+                      return (
+                        <h4
+                          key={index}
+                          className="text-primaryText text-md bg-quinternaryBg px-2 py-1 rounded-lg"
+                        >
+                          {category}
+                        </h4>
+                      );
+                    })}
+                  </div>
                 </div>
-                <h4 className="text-primaryText text-xl">Category</h4>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
-      <div className="flex justify-center gap-2 text-tertiaryText py-16">
-        <h3 className="bg-quinternaryBg p-2 rounded-md text-xl">1</h3>
-        <h3 className="bg-transparent p-2 rounded-md text-xl">2</h3>
-        <h3 className="bg-transparent p-2 rounded-md text-xl">3</h3>
-        <h3 className="bg-transparent p-2 rounded-md text-xl">...</h3>
-        <h3 className="bg-transparent p-2 rounded-md text-xl">7</h3>
-        <h3 className="bg-transparent p-2 rounded-md text-xl flex items-center border border-gray px-4">
-          <BsArrowRight />
-        </h3>
-      </div>
+      <PageNumber />
       <div className="flex justify-start pb-16 px-8">
         <h4 className="text-sm text-primaryText">Home / Shop</h4>
       </div>
       <Footer />
+      <Filters />
     </div>
   );
 };

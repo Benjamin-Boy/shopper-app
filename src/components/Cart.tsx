@@ -1,3 +1,8 @@
+// Import React properties
+
+// Imports custom hooks
+import { useAppSelector } from "../hooks";
+
 // Imports React components
 import Button from "./Button";
 
@@ -7,10 +12,15 @@ import { AiOutlineClose } from "react-icons/ai";
 import defaultImg from "../assets/temp/2601.jpg";
 
 const Cart = () => {
+  const { cartOpen } = useAppSelector((state) => state.global);
   const products = [1, 2];
 
   return (
-    <div className="absolute right-0 bg-primaryBg w-[95%] p-8">
+    <div
+      className={`z-10 absolute top-[60px] right-0 bg-primaryBg w-[25rem] md:h-[calc(100vh-60px)] p-8 ${
+        cartOpen ? "animate-cartToggle" : "animate-cartToggleReverse"
+      }`}
+    >
       <div className="flex justify-between items-baseline">
         <h1 className="text-3xl">Your cart</h1>
         <h3>close</h3>
@@ -58,8 +68,8 @@ const Cart = () => {
         </div>
       </div>
       <div className="flex flex-col gap-4 mt-4">
-        <Button text="Checkout" />
-        <Button text="Continue browsing" />
+        <Button text="Checkout" use="cart" path={"/checkout"} />
+        <Button text="Continue browsing" use="cart-trans" />
       </div>
     </div>
   );

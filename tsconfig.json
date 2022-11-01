@@ -3,13 +3,15 @@
     /* Basic Options */
     "target": "es2015" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */,
     "module": "es2015" /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd' or 'es2015'. */,
+    "resolveJsonModule": true,
     "lib": [
       "es5",
       "es6",
+      "es2019",
       "dom"
     ] /* Specify library files to be included in the compilation:  */,
     "allowJs": true /* Allow JavaScript files to be compiled. */,
-    "checkJs": true /* Report errors in .js files. */,
+    "checkJs": false /* Report errors in .js files. */,
     "jsx": "preserve" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     // "sourceMap": true /* Generates corresponding '.map' file. */,
@@ -41,7 +43,9 @@
     "paths": {} /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */,
     "rootDirs": [] /* List of root folders whose combined content represents the structure of the project at runtime. */,
     "typeRoots": [] /* List of folders to include type definitions from. */,
-    "types": [] /* Type declaration files to be included in compilation. */,
+    "types": [
+      // "node"
+    ] /* Type declaration files to be included in compilation. */,
     "allowSyntheticDefaultImports": true /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */,
 
     /* Source Map Options */
@@ -54,4 +58,7 @@
     "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
     "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
   }
+  // "ts-node": {
+  //   "esm": true
+  // }
 }

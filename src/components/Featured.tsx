@@ -5,21 +5,21 @@ type featured = {
 };
 
 const Featured = ({ title }: featured) => {
-  const featuredProducts = [1, 2, 3];
+  const featuredProducts = [1, 2, 3, 4, 5, 6, 7];
   const colors = [1, 2, 3, 4, 5];
 
   return (
-    <div className="flex flex-col gap-14 bg-secondaryBg h-[calc(100vh-60px)] px-8">
-      <div className="flex flex-col gap-2 pt-8">
+    <div className="flex flex-col gap-14 bg-secondaryBg h-[calc(100vh-60px)] p-8">
+      <div className="flex flex-col gap-2">
         <h1 className="text-4xl text-tertiaryText">{title}</h1>
         {title === "Featured" && (
           <h2 className="text-xl text-primaryText">Trending this month</h2>
         )}
       </div>
-      <div className="flex justify-start gap-8 overflow-x-auto whitespace-nowrap">
+      <div className="flex justify-start gap-4 overflow-x-auto whitespace-nowrap">
         {featuredProducts.map(() => {
           return (
-            <div className="min-w-[400px] max-w-[400px] flex flex-col gap-2 py-8">
+            <div className="flex flex-col gap-2 py-8 min-w-[60%] max-w-[400px] md:min-w-[400px] md:max-w-[400px]">
               <img src={defaultImg} alt="default" className="rounded-lg" />
               <div className="px-4">
                 <div className="flex justify-between">
