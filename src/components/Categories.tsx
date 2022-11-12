@@ -1,7 +1,9 @@
-// Imports data files
-import products from "../data/data.json";
+// Imports custom hooks
+import { useAppSelector } from "../hooks";
 
 const Categories = () => {
+  const { products } = useAppSelector((state) => state.products);
+
   const masterCategories = Array.from(
     new Set(products.map((product) => product.masterCategory).flat())
   );

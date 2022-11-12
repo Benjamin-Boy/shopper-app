@@ -8,15 +8,11 @@ type Props = {
   text: string;
   use: string;
   path?: string;
+  handleClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-const Button: React.FC<Props> = ({ text, use, path }) => {
-  if (
-    use === "cart" ||
-    use === "home" ||
-    use === "product" ||
-    use === "clearFilter"
-  ) {
+const Button: React.FC<Props> = ({ text, use, path, handleClick }) => {
+  if (use === "cart" || use === "home") {
     return (
       <Link
         to={{
@@ -60,6 +56,17 @@ const Button: React.FC<Props> = ({ text, use, path }) => {
       <button className="flex items-center gap-4 bg-quinternaryBg py-2 px-6 my-4 rounded-full">
         <FaFilter />
         <h5 className="text-lg">{text}</h5>
+      </button>
+    );
+  }
+
+  if (use === "clearFilter") {
+    return (
+      <button
+        className="w-full text-xl text-center rounded-md border-2 text-secondaryText bg-quaternaryBg border-transparent hover:text-primaryText hover:bg-transparent hover:border-gray"
+        onClick={handleClick}
+      >
+        {text}
       </button>
     );
   }

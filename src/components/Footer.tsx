@@ -31,7 +31,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="h-[60px] bg-primaryText text-secondaryText flex justify-center items-center">
-        <h4>&copy; {new Date().getFullYear()}</h4>
+        <h4>&copy; {new Date().getFullYear()} Shopper.</h4>
       </div>
     </div>
   );

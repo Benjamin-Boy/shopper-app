@@ -15,11 +15,10 @@ import PageNumber from "../components/PageNumber";
 import Button from "../components/Button";
 import Filters from "../components/Filters";
 
-// Imports data files
-// import products from "../data/data.json";
-
 const Products = () => {
-  const { products } = useAppSelector((state) => state.products);
+  const { filteredProducts: products } = useAppSelector(
+    (state) => state.filters
+  );
   const dispatch = useAppDispatch();
 
   const currency = "£";
@@ -35,7 +34,9 @@ const Products = () => {
         <h1 className="text-4xl text-tertiaryText">Shop all you want</h1>
         <div className="flex justify-between md:px-16">
           <div className="flex justify-start items-center gap-8">
-            <h4 className="text-sm text-primaryText">Home / Shop</h4>
+            <h4 className="text-sm text-primaryText">
+              <Link to="/">Home</Link> / Shop
+            </h4>
             <div className="hidden md:flex justify-center ">
               <div onClick={() => dispatch(toggleFilterOpen())}>
                 <Button use="filter" text="Filter" />
@@ -43,7 +44,7 @@ const Products = () => {
             </div>
           </div>
           <div className="flex justify-end gap-2">
-            <h4>150 items</h4>
+            <h4>{products.length} items</h4>
           </div>
         </div>
       </div>
