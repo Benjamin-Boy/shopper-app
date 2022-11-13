@@ -182,7 +182,7 @@ const Filters = () => {
                 <input
                   type="checkbox"
                   className={`w-[2rem] h-[2rem] ${hexCode} rounded-full group appearance-none checked:border-2 checked:border-tertiaryText`}
-                  onClick={(e) => {
+                  onChange={(e) => {
                     dispatch(
                       filterProducts({
                         name,

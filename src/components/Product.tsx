@@ -26,7 +26,6 @@ type ProductParams = {
 
 const Product = () => {
   const { products, avgRating } = useAppSelector((state) => state.products);
-  // const { cartItems } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const { id } = useParams<ProductParams>();
 

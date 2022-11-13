@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Navbar } from "./components";
+import { Navbar, ScrollToTop } from "./components";
 import { Home, About, Blog, Products, Checkout, SingleProduct } from "./pages";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

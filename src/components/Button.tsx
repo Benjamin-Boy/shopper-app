@@ -9,9 +9,16 @@ type Props = {
   use: string;
   path?: string;
   handleClick?: React.MouseEventHandler<HTMLButtonElement>;
+  toggleCartOpen?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-const Button: React.FC<Props> = ({ text, use, path, handleClick }) => {
+const Button: React.FC<Props> = ({
+  text,
+  use,
+  path,
+  handleClick,
+  toggleCartOpen,
+}) => {
   if (use === "cart" || use === "home") {
     return (
       <Link
@@ -45,6 +52,7 @@ const Button: React.FC<Props> = ({ text, use, path, handleClick }) => {
     return (
       <button
         className={`text-3xl rounded-md px-8 py-2 border-2 text-primaryText bg-transparent border-gray hover:text-primaryText hover:bg-quaternaryBg hover:text-secondaryText hover:border-transparent`}
+        onClick={toggleCartOpen}
       >
         {text}
       </button>

@@ -33,6 +33,7 @@ const Navbar = () => {
   const { categoriesOpen, sidebarOpen } = useAppSelector(
     (state) => state.global
   );
+  const { totalItems } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
   if (sidebarOpen) {
@@ -58,8 +59,11 @@ const Navbar = () => {
           <div className="hidden md:block">
             <Navlinks />
           </div>
-          <div onClick={() => dispatch(toggleCartOpen())}>
+          <div className="relative" onClick={() => dispatch(toggleCartOpen())}>
             <HiOutlineShoppingCart />
+            <div className="absolute right-[-0.7rem] top-[-0.7rem] flex justify-center items-center w-[1.5rem] h-[1.5rem] bg-[#fff0c7] rounded-full text-lg">
+              {totalItems}
+            </div>
           </div>
           <div
             className="block md:hidden"
