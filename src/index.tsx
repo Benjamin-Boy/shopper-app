@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import App from "./App";
 
 // Imports CSS files
-import "./index.css";
+import "./tailwind.output.css";
 
 const root = createRoot(document.getElementById("root")!);
 

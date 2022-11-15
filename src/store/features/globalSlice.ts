@@ -5,6 +5,9 @@ type InitialState = {
   sidebarOpen: boolean;
   categoriesOpen: boolean;
   filterOpen: boolean;
+  currentProductPage: number;
+  currentRatingPage: number;
+  recordsPerPage: number;
 };
 
 const initialState: InitialState = {
@@ -12,6 +15,9 @@ const initialState: InitialState = {
   sidebarOpen: false,
   categoriesOpen: false,
   filterOpen: false,
+  currentProductPage: 1,
+  currentRatingPage: 1,
+  recordsPerPage: 15,
 };
 
 const globalSlice = createSlice({
@@ -30,6 +36,9 @@ const globalSlice = createSlice({
     toggleFilterOpen(state) {
       state.filterOpen = !state.filterOpen;
     },
+    setCurrentProductPage(state, { payload }) {
+      state.currentProductPage = payload;
+    },
   },
 });
 
@@ -39,4 +48,5 @@ export const {
   togglesidebarOpen,
   toggleCategoriesOpen,
   toggleFilterOpen,
+  setCurrentProductPage,
 } = globalSlice.actions;

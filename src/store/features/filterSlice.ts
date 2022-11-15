@@ -40,6 +40,10 @@ interface InitialState {
   products: Product[];
   filteredProducts: Product[];
   filters: {
+    filtersActive: {
+      name: string;
+      checked: boolean;
+    }[];
     categories: string[];
     clothTypes: string[];
     genders: string[];
@@ -55,6 +59,7 @@ const initialState: InitialState = {
   products: JSON.parse(productsString),
   filteredProducts: JSON.parse(productsString),
   filters: {
+    filtersActive: [],
     categories: [],
     clothTypes: [],
     genders: [],
@@ -72,6 +77,7 @@ const filterSlice = createSlice({
   reducers: {
     clearFilters(state) {
       state.filters = {
+        filtersActive: state.filters.filtersActive,
         categories: [],
         clothTypes: [],
         genders: [],
@@ -82,32 +88,75 @@ const filterSlice = createSlice({
         maxPrice: state.filters.maxPrice,
       };
 
+      state.filters.filtersActive.forEach((filter) => {
+        return { ...filter, checked: false };
+      });
+
       state.filteredProducts = state.products;
     },
     filterProducts(state, { payload }) {
       const { name, value, filterType } = payload;
-      let { categories, clothTypes, genders, brands, colors, price, maxPrice } =
+
+      let { genders, brands, colors, price, maxPrice, clothTypes } =
         state.filters;
       let productsTemp = state.products;
 
       const pricesArr = productsTemp.map((p) => Number(p.price));
-
       maxPrice = Math.max(...pricesArr);
       price = maxPrice;
 
+      const filtersArr = Array.from(
+        new Set(
+          productsTemp
+            .map(({ masterCategory, subCategory, articleType }) => [
+              masterCategory,
+              subCategory,
+              articleType,
+            ])
+            .flat()
+        )
+      );
+
+      const filtersTemp = filtersArr.map((filter) => ({
+        name: filter,
+        checked: false,
+      }));
+
+      state.filters.filtersActive = filtersTemp;
+
       if (filterType === "category") {
         if (value) {
-          categories.push(name);
+          // categories.push(name);
+          state.filters.filtersActive.forEach((filter) => {
+            if (filter.name === name) {
+              filter.checked = true;
+            }
+          });
         } else {
-          categories = categories.filter((category) => category !== name);
+          // categories = categories.filter((category) => category !== name);
+          state.filters.filtersActive.forEach((filter) => {
+            if (filter.name === name) {
+              filter.checked = false;
+            }
+          });
         }
       }
 
       if (filterType === "clothType") {
         if (value) {
           clothTypes.push(name);
+          // state.filters.filtersActive.forEach((filter) => {
+          //   if (filter.name === name) {
+          //     filter.checked = true;
+          //   }
+          // });
         } else {
           clothTypes = clothTypes.filter((type) => type !== name);
+          // state.filters.filtersActive.forEach((filter) => {
+          //   if (filter.name === name) {
+          //     filter.checked = false;
+          //   }
+          // });
         }
       }
 
@@ -139,9 +188,20 @@ const filterSlice = createSlice({
         price = value;
       }
 
-      if (categories.length > 0) {
-        productsTemp = productsTemp.filter((product) =>
-          categories.includes(product.masterCategory)
+      // if (categories.length > 0) {
+      //   productsTemp = productsTemp.filter((product) =>
+      //     categories.includes(product.masterCategory)
+      //   );
+      // }
+
+      if (
+        state.filters.filtersActive.some(({ checked }) => checked !== false)
+      ) {
+        productsTemp = productsTemp.filter(
+          (product) =>
+            state.filters.filtersActive.find(({ name }) =>
+              product.categories.includes(name)
+            )!.checked === true
         );
       }
 
@@ -181,7 +241,7 @@ const filterSlice = createSlice({
 
       state.filters = {
         ...state.filters,
-        categories,
+        // categories,
         clothTypes,
         genders,
         brands,

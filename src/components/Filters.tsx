@@ -14,8 +14,8 @@ import { useEffect } from "react";
 
 const Filters = () => {
   const { filterOpen } = useAppSelector((state) => state.global);
-  const { products } = useAppSelector((state) => state.products);
-  const { price, maxPrice, minPrice } = useAppSelector(
+  const { products } = useAppSelector((state) => state.filters);
+  const { price, maxPrice, minPrice, filtersActive } = useAppSelector(
     (state) => state.filters.filters
   );
   const dispatch = useAppDispatch();
@@ -49,6 +49,8 @@ const Filters = () => {
     uniqueColorsSet.add(colorJSON);
   }
 
+  console.log(filtersActive);
+
   useEffect(() => {
     dispatch(filterProducts(products));
   }, []);
@@ -74,6 +76,10 @@ const Filters = () => {
                 <input
                   type="checkbox"
                   name={category}
+                  // checked={
+                  //  filtersActive.find(({ name }) => name === category)!
+                  //         .checked
+                  // }
                   data-filter-type="category"
                   onClick={(e) =>
                     dispatch(

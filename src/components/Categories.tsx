@@ -1,19 +1,33 @@
+// Imports React router components
+import { Link } from "react-router-dom";
+
 // Imports custom hooks
-import { useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
+
+// Imports Redux slices
+import { filterProducts } from "../store/features/filterSlice";
 
 const Categories = () => {
   const { products } = useAppSelector((state) => state.products);
+  // const { filteredProducts } = useAppSelector(
+  //   (state) => state.filters
+  // );
+  const dispatch = useAppDispatch();
 
   const masterCategories = Array.from(
     new Set(products.map((product) => product.masterCategory).flat())
   );
 
-  const subCategories = Array.from(
-    new Set(products.map((product) => product.subCategory).flat())
-  );
+  // const subCategories = Array.from(
+  //   new Set(products.map((product) => product.subCategory).flat())
+  // );
 
   const articleTypes = Array.from(
-    new Set(products.map((product) => product.articleType).flat())
+    new Set(
+      products
+        .map(({ subCategory, articleType }) => [subCategory, articleType])
+        .flat()
+    )
   );
 
   const genders = Array.from(
@@ -30,28 +44,39 @@ const Categories = () => {
         <li className="text-xl text-tertiaryText md:text-2xl">Categories</li>
         {masterCategories.map((category, index) => {
           return (
-            <li
-              key={index}
-              className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText"
-            >
-              {category}
-            </li>
+            <Link to="/products">
+              <li
+                key={index}
+                className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText cursor-default"
+                onClick={() => {
+                  dispatch(
+                    filterProducts({
+                      name: category,
+                      value: true,
+                      filterType: "category",
+                    })
+                  );
+                }}
+              >
+                {category}
+              </li>
+            </Link>
           );
         })}
       </ul>
-      <ul className="grow">
+      {/* <ul className="grow">
         <li className="text-xl text-tertiaryText md:text-2xl">Categories</li>
         {subCategories.map((category, index) => {
           return (
             <li
               key={index}
-              className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText"
+              className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText cursor-default"
             >
               {category}
             </li>
           );
         })}
-      </ul>
+      </ul> */}
       <ul className="grow">
         <li className="text-xl text-tertiaryText md:text-2xl">Clothes</li>
         <li className="grid grid-cols-2">
@@ -59,7 +84,7 @@ const Categories = () => {
             return (
               <div
                 key={index}
-                className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText"
+                className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText cursor-default"
               >
                 {category}
               </div>
@@ -73,7 +98,7 @@ const Categories = () => {
           return (
             <li
               key={index}
-              className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText"
+              className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText cursor-default"
             >
               {gender}
             </li>
@@ -86,7 +111,7 @@ const Categories = () => {
           return (
             <li
               key={index}
-              className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText"
+              className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText cursor-default"
             >
               {brand}
             </li>
