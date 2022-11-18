@@ -1,3 +1,6 @@
+// Imports React properties
+import { useEffect } from "react";
+
 // Import React components
 import Button from "./Button";
 
@@ -5,18 +8,22 @@ import Button from "./Button";
 import { useAppSelector, useAppDispatch } from "../hooks";
 
 // Imports redux slices
-import { toggleFilterOpen } from "../store/features/globalSlice";
+import {
+  toggleFilterOpen,
+  toggleFiltersEffect,
+} from "../store/features/globalSlice";
 import { filterProducts, clearFilters } from "../store/features/filterSlice";
 
 // Imports Reac icons
 import { BiChevronsLeft } from "react-icons/bi";
-import { useEffect } from "react";
 
 const Filters = () => {
-  const { filterOpen } = useAppSelector((state) => state.global);
   const { products } = useAppSelector((state) => state.filters);
-  const { price, maxPrice, minPrice, filtersActive } = useAppSelector(
+  const { price, maxPrice, minPrice } = useAppSelector(
     (state) => state.filters.filters
+  );
+  const { filtersOpen, filtersEffect } = useAppSelector(
+    (state) => state.global
   );
   const dispatch = useAppDispatch();
 
@@ -49,20 +56,26 @@ const Filters = () => {
     uniqueColorsSet.add(colorJSON);
   }
 
-  console.log(filtersActive);
-
   useEffect(() => {
     dispatch(filterProducts(products));
   }, []);
 
+  useEffect(() => {
+    dispatch(toggleFiltersEffect());
+  }, [filtersOpen]);
+
   return (
     <div
       className={`z-10 fixed top-[60px] left-0 flex flex-col gap-2 w-[25rem] h-[calc(100vh-60px)] bg-quinternaryBg px-4 pt-2 ${
-        filterOpen ? "animate-filterToggle" : "animate-filterToggleReverse"
+        filtersEffect === "open"
+          ? "animate-filterToggle"
+          : filtersEffect === "closed"
+          ? "animate-filterToggleReverse"
+          : "translate-x-[-100%]"
       }`}
     >
       <div
-        className="absolute right-[-2rem] flex justify-end text-2xl"
+        className="absolute right-0 flex justify-end text-2xl"
         onClick={() => dispatch(toggleFilterOpen())}
       >
         <BiChevronsLeft />

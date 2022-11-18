@@ -805,6 +805,76 @@ video {
   flex-grow: 1;
 }
 
+.translate-x-\[-100\%\] {
+  --tw-translate-x: -100%;
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-\[100\%\] {
+  --tw-translate-y: 100%;
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@-webkit-keyframes filterToggle {
+  0% {
+    -webkit-transform: translateX(-100%) ;
+            transform: translateX(-100%) ;
+  }
+
+  100% {
+    -webkit-transform: translateX(0) ;
+            transform: translateX(0) ;
+  }
+}
+
+@keyframes filterToggle {
+  0% {
+    -webkit-transform: translateX(-100%) ;
+            transform: translateX(-100%) ;
+  }
+
+  100% {
+    -webkit-transform: translateX(0) ;
+            transform: translateX(0) ;
+  }
+}
+
+.animate-filterToggle {
+  -webkit-animation: filterToggle 300ms ease-in-out forwards;
+          animation: filterToggle 300ms ease-in-out forwards;
+}
+
+@-webkit-keyframes filterToggleReverse {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+
+@keyframes filterToggleReverse {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+
+.animate-filterToggleReverse {
+  -webkit-animation: filterToggleReverse 300ms ease-in-out forwards;
+          animation: filterToggleReverse 300ms ease-in-out forwards;
+}
+
 @-webkit-keyframes cartToggle {
   0% {
     -webkit-transform: translateX(100%) scaleX(0);
@@ -881,84 +951,6 @@ video {
 .animate-cartToggleReverse {
   -webkit-animation: cartToggleReverse 300ms ease-in-out forwards;
           animation: cartToggleReverse 300ms ease-in-out forwards;
-}
-
-@-webkit-keyframes filterToggle {
-  0% {
-    -webkit-transform: translateX(-100%) scaleX(0);
-            transform: translateX(-100%) scaleX(0);
-  }
-
-  10% {
-    -webkit-transform: translateX(-90%) scaleX(1);
-            transform: translateX(-90%) scaleX(1);
-  }
-
-  100% {
-    -webkit-transform: translateX(0) scaleX(1);
-            transform: translateX(0) scaleX(1);
-  }
-}
-
-@keyframes filterToggle {
-  0% {
-    -webkit-transform: translateX(-100%) scaleX(0);
-            transform: translateX(-100%) scaleX(0);
-  }
-
-  10% {
-    -webkit-transform: translateX(-90%) scaleX(1);
-            transform: translateX(-90%) scaleX(1);
-  }
-
-  100% {
-    -webkit-transform: translateX(0) scaleX(1);
-            transform: translateX(0) scaleX(1);
-  }
-}
-
-.animate-filterToggle {
-  -webkit-animation: filterToggle 300ms ease-in-out forwards;
-          animation: filterToggle 300ms ease-in-out forwards;
-}
-
-@-webkit-keyframes filterToggleReverse {
-  0% {
-    -webkit-transform: translateX(0) scaleX(1);
-            transform: translateX(0) scaleX(1);
-  }
-
-  90% {
-    -webkit-transform: translateX(-90%) scaleX(1);
-            transform: translateX(-90%) scaleX(1);
-  }
-
-  100% {
-    -webkit-transform: translateX(-100%) scaleX(0);
-            transform: translateX(-100%) scaleX(0);
-  }
-}
-
-@keyframes filterToggleReverse {
-  0% {
-    -webkit-transform: translateX(0) scaleX(1);
-            transform: translateX(0) scaleX(1);
-  }
-
-  90% {
-    -webkit-transform: translateX(-90%) scaleX(1);
-            transform: translateX(-90%) scaleX(1);
-  }
-
-  100% {
-    -webkit-transform: translateX(-100%) scaleX(0);
-            transform: translateX(-100%) scaleX(0);
-  }
-}
-
-.animate-filterToggleReverse {
-  -webkit-animation: filterToggleReverse 300ms ease-in-out forwards;
-          animation: filterToggleReverse 300ms ease-in-out forwards;
 }
 
 @-webkit-keyframes categoriesToggle {

@@ -1,4 +1,5 @@
 // Import React properties
+import { useEffect } from "react";
 
 // Imports custom hooks
 import { useAppSelector, useAppDispatch } from "../hooks";
@@ -6,7 +7,9 @@ import { useAppSelector, useAppDispatch } from "../hooks";
 // Imports redux slices
 import {
   toggleCartOpen,
-  togglesidebarOpen,
+  toggleCategoriesOpen,
+  toggleCategoriesEffect,
+  toggleCartEffect,
 } from "../store/features/globalSlice";
 
 // Import React router properties
@@ -22,17 +25,18 @@ import Categories from "./Categories";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { FaBars } from "react-icons/fa";
 
-// Imports data files
-import products from "../data/data.json";
-
 // Imports assets files
 import logo from "../assets/images/logo.png";
-// import defaultImg from "../assets/temp/2601.jpg";
 
 const Navbar = () => {
-  const { categoriesOpen, sidebarOpen } = useAppSelector(
-    (state) => state.global
-  );
+  const { products } = useAppSelector((state) => state.products);
+  const {
+    categoriesOpen,
+    sidebarOpen,
+    categoriesEffect,
+    cartOpen,
+    cartEffect,
+  } = useAppSelector((state) => state.global);
   const { totalItems } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
@@ -42,12 +46,20 @@ const Navbar = () => {
 
   const featuredProducts = [];
 
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 1; i++) {
     const randProduct = Math.floor(Math.random() * products.length);
     const product = products[randProduct];
 
     featuredProducts.push(product);
   }
+
+  useEffect(() => {
+    dispatch(toggleCategoriesEffect());
+  }, [categoriesOpen]);
+
+  useEffect(() => {
+    dispatch(toggleCartEffect());
+  }, [cartOpen]);
 
   return (
     <div className="z-50 sticky top-0 w-full">
@@ -67,7 +79,7 @@ const Navbar = () => {
           </div>
           <div
             className="block md:hidden"
-            onClick={() => dispatch(togglesidebarOpen())}
+            onClick={() => dispatch(toggleCategoriesOpen())}
           >
             <FaBars />
           </div>
@@ -76,13 +88,25 @@ const Navbar = () => {
 
       <div className={`block md:hidden`}>{sidebarOpen && <Sidebar />}</div>
 
-      <Cart />
+      <div
+        className={`${
+          cartEffect === "open"
+            ? "animate-cartToggle"
+            : cartEffect === "closed"
+            ? "animate-cartToggleReverse"
+            : "translate-x-[-100%]"
+        }`}
+      >
+        <Cart />
+      </div>
 
       <div
         className={`hidden md:flex justify-between z-0 absolute top-14 w-full bg-quinternaryBg p-8 ${
-          categoriesOpen
+          categoriesEffect === "open"
             ? "animate-categoriesToggle"
-            : "animate-categoriesToggleReverse"
+            : categoriesEffect === "closed"
+            ? "animate-categoriesToggleReverse"
+            : "translate-y-[100%]"
         }`}
       >
         <Categories />

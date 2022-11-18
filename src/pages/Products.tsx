@@ -1,5 +1,3 @@
-// Imports React properties
-
 // Imports React router properties
 import { Link } from "react-router-dom";
 

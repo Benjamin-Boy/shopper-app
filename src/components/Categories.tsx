@@ -9,18 +9,11 @@ import { filterProducts } from "../store/features/filterSlice";
 
 const Categories = () => {
   const { products } = useAppSelector((state) => state.products);
-  // const { filteredProducts } = useAppSelector(
-  //   (state) => state.filters
-  // );
   const dispatch = useAppDispatch();
 
   const masterCategories = Array.from(
     new Set(products.map((product) => product.masterCategory).flat())
   );
-
-  // const subCategories = Array.from(
-  //   new Set(products.map((product) => product.subCategory).flat())
-  // );
 
   const articleTypes = Array.from(
     new Set(
@@ -39,44 +32,29 @@ const Categories = () => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row md:justify-center w-full gap-8">
+    <div className="flex flex-col md:flex-row md:justify-center w-full gap-8 max-h-[200px]">
       <ul className="grow">
         <li className="text-xl text-tertiaryText md:text-2xl">Categories</li>
-        {masterCategories.map((category, index) => {
-          return (
-            <Link to="/products">
-              <li
-                key={index}
-                className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText cursor-default"
-                onClick={() => {
-                  dispatch(
-                    filterProducts({
-                      name: category,
-                      value: true,
-                      filterType: "category",
-                    })
-                  );
-                }}
-              >
-                {category}
-              </li>
-            </Link>
-          );
-        })}
-      </ul>
-      {/* <ul className="grow">
-        <li className="text-xl text-tertiaryText md:text-2xl">Categories</li>
-        {subCategories.map((category, index) => {
+        {masterCategories.map((category) => {
           return (
             <li
-              key={index}
+              key={category}
               className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText cursor-default"
+              onClick={() => {
+                dispatch(
+                  filterProducts({
+                    name: category,
+                    value: true,
+                    filterType: "category",
+                  })
+                );
+              }}
             >
-              {category}
+              <Link to="/products">{category}</Link>
             </li>
           );
         })}
-      </ul> */}
+      </ul>
       <ul className="grow">
         <li className="text-xl text-tertiaryText md:text-2xl">Clothes</li>
         <li className="grid grid-cols-2">
@@ -94,10 +72,10 @@ const Categories = () => {
       </ul>
       <ul className="grow">
         <li className="text-xl text-tertiaryText md:text-2xl">Gender</li>
-        {genders.map((gender, index) => {
+        {genders.map((gender) => {
           return (
             <li
-              key={index}
+              key={gender}
               className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText cursor-default"
             >
               {gender}
@@ -107,10 +85,10 @@ const Categories = () => {
       </ul>
       <ul className="grow">
         <li className="text-xl text-tertiaryText md:text-2xl">Brands</li>
-        {brands.map((brand, index) => {
+        {brands.map((brand) => {
           return (
             <li
-              key={index}
+              key={brand}
               className="text-l text-primaryText pl-4 my-1 hover:text-tertiaryText cursor-default"
             >
               {brand}

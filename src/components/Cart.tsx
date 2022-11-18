@@ -20,7 +20,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useEffect } from "react";
 
 const Cart = () => {
-  const { cartOpen } = useAppSelector((state) => state.global);
+  // const { cartOpen } = useAppSelector((state) => state.global);
   const { cartItems, totalItems, shipping, total } = useAppSelector(
     (state) => state.cart
   );
@@ -32,9 +32,7 @@ const Cart = () => {
 
   return (
     <div
-      className={`z-10 absolute top-[60px] right-0 bg-primaryBg w-[25rem] md:h-[calc(100vh-60px)] p-8 ${
-        cartOpen ? "animate-cartToggle" : "animate-cartToggleReverse"
-      }`}
+      className={`z-10 absolute top-[60px] right-0 bg-primaryBg w-[25rem] md:h-[calc(100vh-60px)] p-8`}
     >
       <div className="flex justify-between items-baseline">
         <h1 className="text-3xl">Your cart</h1>

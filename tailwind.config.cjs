@@ -35,14 +35,12 @@ module.exports = {
           "100%": { transform: "translateX(100%) scaleX(0)" },
         },
         filterToggle: {
-          "0%": { transform: "translateX(-100%) scaleX(0)" },
-          "10%": { transform: "translateX(-90%) scaleX(1)" },
-          "100%": { transform: "translateX(0) scaleX(1)" },
+          "0%": { transform: "translateX(-100%) " },
+          "100%": { transform: "translateX(0) " },
         },
         filterToggleReverse: {
-          "0%": { transform: "translateX(0) scaleX(1)" },
-          "90%": { transform: "translateX(-90%) scaleX(1)" },
-          "100%": { transform: "translateX(-100%) scaleX(0)" },
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
         },
         sidebarToggle: {
           "0%": { transform: "translateY(-100%)" },
