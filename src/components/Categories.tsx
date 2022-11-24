@@ -32,7 +32,7 @@ const Categories = () => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row md:justify-center w-full gap-8 max-h-[200px]">
+    <div className="flex flex-col md:flex-row md:justify-center w-full gap-8">
       <ul className="grow">
         <li className="text-xl text-tertiaryText md:text-2xl">Categories</li>
         {masterCategories.map((category) => {
